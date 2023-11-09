@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arcus - entrar</title>
+  @entryPointStyles('app')
+  @entryPointScripts('app') 
+</head>
+<body style="background-color:aqua">
+  <main>
+    <div class="container">
+      <!--Login-->
+      <div class="box">
+        <form action="{{ route('session.login') }}" method="POST">
+            {{ csrfField() }}
+          <input name="user" type="text" placeholder="E-mail, celular ou nome de usuário">
+          <br>
+          <input name="password" type="password" placeholder="Senha">
+          <br>
+          <button class="concluído" type="submit">Entrar</button>
+          <p>Não possui uma conta? <a href="{{ route('session.register.show') }}">Registre-se!</a></p> 
+        </form>
+        <a href="/404">Esqueceu a senha?</a>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

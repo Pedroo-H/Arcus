@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arcus - Cadastre-se</title>
+  @entryPointStyles('app')
+  @entryPointScripts('app')
+</head>
+<body>
+  <main>
+    <div class="container">
+      <!--Cadastro-->
+      <div class="central-box">
+        <h1>Cadastre-se!</h1>
+        <form action="{{ route('session.register.show') }}"" method="POST">
+          {{csrfField()}}
+        <input type="text" placeholder="Nome" name="name">
+        <br>
+        <input type="text" placeholder="Usuário" name="handle">
+        <br>
+        <input type="text" placeholder="E-mail" name="email">
+        <br>
+        <input type="password" placeholder="Senha" name="password">
+        <br>
+        <button class="concluído" type="submit">Registrar</button>
+        </form>
+        <p>Já tem uma conta? <a href="{{ route('session.login') }}">Entre!</a></p> 
+      </div>
+    </div>
+  </main>
+</body>
+</html>

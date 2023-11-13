@@ -7,27 +7,39 @@
   @entryPointStyles('app')
   @entryPointScripts('app')
 </head>
-<body>
+<body class="body1">
   <main>
     <div class="container">
+      <h1 style=" font-family:Fantasy, 'Papyrus'; color:rgb(255, 245, 218); text-shadow: 0px 2px 5px hsla(0, 0%, 0%, 0.123); font-size:45px; ">ARCUS</h1>
       <!--Cadastro-->
       <div class="central-box">
         <h1>Cadastre-se!</h1>
-        <form action="{{ route('session.register.show') }}"" method="POST">
-          {{csrfField()}}
-        <input type="text" placeholder="Nome" name="name">
+        <form action="/store" method="POST">
+        <input type="text" placeholder="Nome" name="Name">
         <br>
-        <input type="text" placeholder="Usuário" name="handle">
+        <input type="text" placeholder="Usuário" name="UserName">
         <br>
-        <input type="text" placeholder="E-mail" name="email">
+        <input type="text" placeholder="E-mail" name="Email">
         <br>
-        <input type="password" placeholder="Senha" name="password">
+        <input type="password" placeholder="Senha" name="Password">
         <br>
-        <button class="concluído" type="submit">Registrar</button>
+        <button class="concluído" type="submit">Entrar</button>
         </form>
-        <p>Já tem uma conta? <a href="{{ route('session.login') }}">Entre!</a></p> 
+        <p>Já tem uma conta? <a class="Link" href="{{ route('user.login') }}">Entre!</a></p> 
       </div>
     </div>
   </main>
+  <footer>
+    <div class = "pezinho">
+      <div style="color:white">
+        <p>Arcus 2023</p>
+      </div>
+      <div style="color: white">
+        <p>Dev: <a style="color:white" class="Link" href="">Minerva</a> & <a style="color:white" class="Link" href="">Pedro</a> </p>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>
+
+

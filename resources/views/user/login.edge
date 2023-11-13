@@ -5,25 +5,43 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Arcus - entrar</title>
   @entryPointStyles('app')
-  @entryPointScripts('app') 
+  @entryPointScripts('app')
 </head>
-<body style="background-color:aqua">
+<body class="body1">
   <main>
     <div class="container">
+      <h1 style=" font-family:Fantasy, 'Papyrus'; color:rgb(255, 245, 218); text-shadow: 0px 2px 5px hsla(0, 0%, 0%, 0.123); font-size:45px; ">ARCUS</h1>
       <!--Login-->
-      <div class="box">
-        <form action="{{ route('session.login') }}" method="POST">
-            {{ csrfField() }}
-          <input name="user" type="text" placeholder="E-mail, celular ou nome de usuário">
+      <div class="central-box">
+        <div style="position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%)">
+          <h1>Entre!</h1>
+          <form action={{route('session.login')}} method="POST">
+            <input type="text" placeholder="E-mail ou nome de usuário" name="Id">
+            <br>
+            <input type="password" placeholder="Senha" name="senha">
+            <br>
+            <button class="concluído" type="submit">Entrar</button>
+          </form>
           <br>
-          <input name="password" type="password" placeholder="Senha">
-          <br>
-          <button class="concluído" type="submit">Entrar</button>
-          <p>Não possui uma conta? <a href="{{ route('session.register.show') }}">Registre-se!</a></p> 
-        </form>
-        <a href="/404">Esqueceu a senha?</a>
+          <a class="Link" href="#">Esqueceu sua senha?</a>
+          <p>Ainda não tem conta? <a class="Link" href="{{ route('session.register.show') }}">Cadastre-se!</a></p>
+        </div>
       </div>
     </div>
   </main>
+  <footer>
+    <div class = "pezinho">
+      <div style="color:white">
+        <p>Arcus 2023</p>
+      </div>
+      <div style="color: white">
+        <p>Dev: <a style="color:white" class="Link" href="https://www.github.com/M3n3Rv4">Minerva</a> & <a style="color:white" class="Link" href="https://www.github.com/pedroo-H/">Pedro</a> </p>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>

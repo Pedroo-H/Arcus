@@ -20,9 +20,10 @@
         transform: translate(-50%, -50%)">
           <h1>Entre!</h1>
           <form action={{route('session.login')}} method="POST">
-            <input type="text" placeholder="E-mail ou nome de usuário" name="Id">
+          {{csrfField()}}
+            <input type="text" placeholder="E-mail ou nome de usuário" name="user">
             <br>
-            <input type="password" placeholder="Senha" name="senha">
+            <input type="password" placeholder="Senha" name="password">
             <br>
             <button class="concluído" type="submit">Entrar</button>
           </form>

@@ -14,18 +14,19 @@
       <!--Cadastro-->
       <div class="central-box">
         <h1>Cadastre-se!</h1>
-        <form action=={{route('session.register.create')}}" method="POST">
-        <input type="text" placeholder="Nome" name="Name">
+        <form action={{route('session.register.create')}} method="POST">
+        {{csrfField()}}
+        <input type="text" placeholder="Nome" name="name">
         <br>
-        <input type="text" placeholder="Usuário" name="UserName">
+        <input type="text" placeholder="Usuário" name="handle">
         <br>
-        <input type="text" placeholder="E-mail" name="Email">
+        <input type="text" placeholder="E-mail" name="email">
         <br>
-        <input type="password" placeholder="Senha" name="Password">
+        <input type="password" placeholder="Senha" name="password">
         <br>
-        <button class="concluído" type="submit">Entrar</button>
+        <button class="concluído" type="submit">Registrar</button>
         </form>
-        <p>Já tem uma conta? <a class="Link" href="{{ route('session.show') }}">Entre!</a></p> 
+        <p>Já tem uma conta? <a class="Link" href={{ route('session.show') }}>Entre!</a></p> 
       </div>
     </div>
   </main>

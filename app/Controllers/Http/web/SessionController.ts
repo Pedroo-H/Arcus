@@ -1,4 +1,5 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import UserService from 'App/Services/UserService'
 
 export default class SessionController {
 
@@ -6,26 +7,26 @@ export default class SessionController {
         if (auth.use('web').isLoggedIn) {
             return response.redirect().toRoute('home')
         }
-
+        
         return view.render('user/login')
     }
 
-    // Precisa validar o input? O auth meio que já faz isso...
-    // only works with e-mail for now and is not case insensitive
     public async store({ request, auth, response, session, view }: HttpContextContract) {
-        var email = request.input('user', undefined)
+        var login = request.input('user', undefined)
         var password = request.input('password', undefined) 
 
         try {
-            await auth.use('web').attempt(email, password)
+            var service = new UserService()
+            var user = await service.findUser(login)
+            await auth.use('web').attempt(user.email, password)
             console.log('logged in')
             return response.redirect().toRoute('home')
         } catch (error) {
             console.log('Invalid login')
+            console.log(error)
             session.flashExcept(['login'])
             session.flash({errors : {login: 'Credenciais inválidas!'}})
-            response.status(401) // There must be a better way to do that
-            return view.render('user/login')
+            return response.redirect().back()
         }
     }
 

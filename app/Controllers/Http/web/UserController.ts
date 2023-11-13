@@ -1,6 +1,5 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import User from 'App/Models/User'
-import session from 'Config/session'
 
 // Needs to validate some inputs, improve the logic behind some methods, mainly update/patch
 export default class UsersController {

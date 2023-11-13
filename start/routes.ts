@@ -31,6 +31,7 @@
 */
 
 import Route from '@ioc:Adonis/Core/Route'
+import User from 'App/Models/User'
 
 // Não gostei da forma que as rotas ficaram organizadas, mas não consegui pensar em uma forma melhor por agora
 // O que mais está me incomodando é a parte do handle/id e a parte do session ter coisa do session e usuário (registro)
@@ -51,7 +52,7 @@ Route.group(() => {
     Route.group(() => {
       Route.get('/edit', 'UserController.update').as('update')
       Route.patch('/edit', 'UserController.patch').as('patch') 
-      Route.get('/:handle', 'UserController.show').where('handle', /^[a-zA-Z][a-zA-Z0-9]{3,17}$/).as('show.handle')
+      Route.get('/:handle', 'UserController.show').where('handle', User.regex_handle).as('show.handle')
       Route.get('/:id', 'UserController.show').as('show_id').where('id', /^[0-9]+$/).as('show.id')
       Route.get('/', 'UserController.show').as('show')
     }).prefix('user').as('user').middleware('auth:web')

@@ -19,7 +19,7 @@
         margin-right: -50%;
         transform: translate(-50%, -50%)">
           <h1>Entre!</h1>
-          <form action="/store" method="POST">
+          <form action={{route('session.login')}} method="POST">
             <input type="text" placeholder="E-mail ou nome de usuário" name="Id">
             <br>
             <input type="password" placeholder="Senha" name="senha">
@@ -28,7 +28,7 @@
           </form>
           <br>
           <a class="Link" href="#">Esqueceu sua senha?</a>
-          <p>Ainda não tem conta? <a class="Link" href="{{ route('session.register') }}">Cadastre-se!</a></p>
+          <p>Ainda não tem conta? <a class="Link" href="{{ route('session.register.show') }}">Cadastre-se!</a></p>
         </div>
       </div>
     </div>
@@ -39,7 +39,7 @@
         <p>Arcus 2023</p>
       </div>
       <div style="color: white">
-        <p>Dev: <a style="color:white" class="Link" href="">Minerva</a> & <a style="color:white" class="Link" href="">Pedro</a> </p>
+        <p>Dev: <a style="color:white" class="Link" href="https://www.github.com/M3n3Rv4">Minerva</a> & <a style="color:white" class="Link" href="https://www.github.com/pedroo-H/">Pedro</a> </p>
       </div>
     </div>
   </footer>

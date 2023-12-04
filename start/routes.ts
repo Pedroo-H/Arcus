@@ -65,7 +65,7 @@ Route.group(() => {
     }).prefix('post').as('post').middleware('auth:web')
 
     Route.any('*', async ({ view }) => {
-      return view.render('404')
+      return view.render('errors/not-found')
     }).as('404')
   }
 ).namespace('App/Controllers/Http/Web')

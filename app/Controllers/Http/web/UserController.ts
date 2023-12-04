@@ -1,5 +1,8 @@
+import { Exception } from '@adonisjs/core/build/standalone'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import User from 'App/Models/User'
+import UserService from 'App/Services/UserService'
+import CreateUserValidator from 'App/Validators/CreateUserValidator'
 
 // Needs to validate some inputs, improve the logic behind some methods, mainly update/patch
 export default class UsersController {
@@ -43,10 +46,16 @@ export default class UsersController {
         }
     }
 
-    // Handle is not insentive for now, but it SHOULD be in future
     public async show({ response, session, params, view, auth }: HttpContextContract) {
         try {
-            var user: User
+            var user
+
+            var userService = new UserService()
+            if (!params.id && !params.handle) {
+                throw new Exception('No user specified', 404, 'E_ROUTE_NOT_FOUND')
+            }
+
+            
             if (params.id || params.handle) {
                 user = params.id ? await User.findOrFail(params.id) : await User.findByOrFail('handle', params.handle)
             } else user = auth.user!
@@ -62,23 +71,17 @@ export default class UsersController {
         }
     }
 
-    public async store({ response, request, view, session }: HttpContextContract) {
-        var name = request.input('name', undefined)
-        var email = request.input('email', undefined)
-        var password = request.input('password', undefined)
-        var handle = request.input('handle', undefined)
-        
-        if (!name || !email || !password || !handle) {
-            session.flashExcept(['register'])
-            session.flash({ errors: { register: 'Todos os campos são obrigatórios!' } })
-            response.status(400)
-            return view.render('user/register')
-        }
+    public async store({ response, request, session }: HttpContextContract) {
+        const payload = await request.validate(CreateUserValidator)
+        const userService = new UserService()
 
-        const user = await User.create({ name: name, email: email, password: password, handle: handle })
-        console.log(user.id)
+        const user = await userService.create(payload.email, payload.name, payload.handle, payload.password)
+        console.log(`account with ID ${user.id} created, handle: ${user.handle}, email: ${user.email}, name: ${user.email}`)
 
-        return view.render('user/login')
+        session.flashOnly([])
+        session.flash({ register: {success: 'Conta criada com sucesso!'} })
+
+        return response.redirect().toRoute('session.login')
     }
 
 }

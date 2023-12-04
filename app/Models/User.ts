@@ -6,7 +6,7 @@ import Post from './Post'
 export default class User extends BaseModel {
 
   static readonly regex_email: RegExp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
-  static readonly regex_number: RegExp = /^[0-9]{1,16}$/;
+  static readonly regex_number: RegExp = /^[0-9]$/;
   static readonly regex_handle: RegExp = /^[a-zA-Z][a-zA-Z0-9]{3,17}$/;
 
   @column({ isPrimary: true })

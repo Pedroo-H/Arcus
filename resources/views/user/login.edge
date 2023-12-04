@@ -21,6 +21,7 @@
           <h1>Entre!</h1>
           <form action={{route('session.login')}} method="POST">
           {{csrfField()}}
+          {{inspect(flashMessages.all())}}
             <input type="text" placeholder="E-mail ou nome de usuário" name="user">
             <br>
             <input type="password" placeholder="Senha" name="password">

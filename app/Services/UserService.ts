@@ -4,7 +4,10 @@ export default class UserService {
     constructor() {}
 
     public async findUser(str: string): Promise<User> {
-        let user: User;
+        let user: User
+
+        if (!str) throw new Error('No user specified')
+
         if (User.regex_email.test(str)) {
             user = await User.query().whereRaw('LOWER(email) = ?', [str.toLowerCase()]).firstOrFail()
         } else if (User.regex_handle.test(str)) {
@@ -13,6 +16,10 @@ export default class UserService {
             user = await User.findOrFail(str)
         }
 
-        return user!;
+        return user!
+    }
+
+    public async create(email: string, name: string, handle: string, password: string): Promise<User> {
+        return await User.create({ email: email, name: name, handle: handle, password: password })
     }
 }

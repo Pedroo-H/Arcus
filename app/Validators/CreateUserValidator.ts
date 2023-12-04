@@ -1,40 +1,33 @@
-import { schema, CustomMessages } from '@ioc:Adonis/Core/Validator'
+import { schema, CustomMessages, rules } from '@ioc:Adonis/Core/Validator'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import BaseValidator from './BaseValidator'
+import User from 'App/Models/User'
 
-export default class CreateUserValidator {
-  constructor(protected ctx: HttpContextContract) {}
+export default class CreateUserValidator extends BaseValidator {
+  constructor(protected ctx: HttpContextContract) {
+    super()
+  }
 
-  /*
-   * Define schema to validate the "shape", "type", "formatting" and "integrity" of data.
-   *
-   * For example:
-   * 1. The username must be of data type string. But then also, it should
-   *    not contain special characters or numbers.
-   *    ```
-   *     schema.string([ rules.alpha() ])
-   *    ```
-   *
-   * 2. The email must be of data type string, formatted as a valid
-   *    email. But also, not used by any other user.
-   *    ```
-   *     schema.string([
-   *       rules.email(),
-   *       rules.unique({ table: 'users', column: 'email' }),
-   *     ])
-   *    ```
-   */
-  public schema = schema.create({})
+  public schema = schema.create({
+    email: schema.string({ trim: true }, [
+      rules.email(),
+      rules.unique({ table: 'users', column: 'email', caseInsensitive: true }),
+    ]),
+    name: schema.string({ trim: true }, [
+      rules.minLength(4),
+      rules.maxLength(256),
+    ]),
+    handle: schema.string({ trim: true }, [
+      rules.minLength(4),
+      rules.maxLength(256),
+      rules.regex(User.regex_handle),
+      rules.unique({ table: 'users', column: 'handle', caseInsensitive: true }),
+    ]),
+    password: schema.string([
+      rules.minLength(8),
+      rules.maxLength(128),
+    ]),
+  })
 
-  /**
-   * Custom messages for validation failures. You can make use of dot notation `(.)`
-   * for targeting nested fields and array expressions `(*)` for targeting all
-   * children of an array. For example:
-   *
-   * {
-   *   'profile.username.required': 'Username is required',
-   *   'scores.*.number': 'Define scores as valid numbers'
-   * }
-   *
-   */
-  public messages: CustomMessages = {}
+  public messages: CustomMessages = {...this.messages}
 }

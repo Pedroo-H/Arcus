@@ -16,6 +16,7 @@
         <h1>Cadastre-se!</h1>
         <form action={{route('session.register.create')}} method="POST">
         {{csrfField()}}
+        {{inspect(flashMessages.all())}}
         <input type="text" placeholder="Nome" name="name">
         <br>
         <input type="text" placeholder="Usuário" name="handle">

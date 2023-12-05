@@ -25,4 +25,5 @@ export default Env.rules({
   NODE_ENV: Env.schema.enum(['development', 'production', 'test'] as const),
   DB_CONNECTION: Env.schema.string(),
   ENCRYPTION_KEY: Env.schema.string(),
+  ENCRYPTION_IV: Env.schema.string(),
 })

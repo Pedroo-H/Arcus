@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon'
 import Hash from '@ioc:Adonis/Core/Hash'
-import { column, beforeSave, BaseModel, hasMany, HasMany, afterFind, beforeFind, afterFetch, beforeFetch, ModelQueryBuilderContract } from '@ioc:Adonis/Lucid/Orm'
+import { column, beforeSave, BaseModel, hasMany, HasMany, afterFind, beforeFind, afterFetch, beforeFetch, ModelQueryBuilderContract, afterSave } from '@ioc:Adonis/Lucid/Orm'
 import Post from './Post'
 import Crypto from 'Contracts/crypto';
 
@@ -58,8 +58,10 @@ export default class User extends BaseModel {
         user.email = Crypto.encrypt(user.email.toLowerCase())
     }
   }
-
+  
   @afterFetch()
+  @afterFind()
+  @afterSave()
   public static async decryptEmail(user: User) {
     if (user.email) {
       user.email = Crypto.decrypt(user.email)

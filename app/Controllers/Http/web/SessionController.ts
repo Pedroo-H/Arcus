@@ -1,6 +1,7 @@
 import { Exception } from '@adonisjs/core/build/standalone'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import UserService from 'App/Services/UserService'
+import Crypto from 'Contracts/crypto'
 
 export default class SessionController {
 
@@ -24,7 +25,7 @@ export default class SessionController {
                 throw new Exception('User not found', 403, 'E_USER_NOT_FOUND')
             }
 
-            await auth.use('web').attempt(user.email, password)
+            await auth.use('web').attempt(Crypto.encrypt(user.email), password)
             console.log(`${user.handle} logged in`)
 
             return response.redirect().toRoute('home')
@@ -48,6 +49,7 @@ export default class SessionController {
     public async destroy({ auth, response }: HttpContextContract) {
         if (auth.use('web').isLoggedIn) {
             console.log(auth.user?.handle + " logged out")
+            console.log(auth.user)
             await auth.use('web').logout()
         }
 

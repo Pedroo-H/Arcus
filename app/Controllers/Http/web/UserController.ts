@@ -76,7 +76,7 @@ export default class UsersController {
         const userService = new UserService()
 
         const user = await userService.create(payload.email, payload.name, payload.handle, payload.password)
-        console.log(`account with ID ${user.id} created, handle: ${user.handle}, email: ${user.email}, name: ${user.email}`)
+        console.log(`account with ID ${user.id} created, handle: ${user.handle}, email: ${user.email}, name: ${user.name}`)
 
         session.flashOnly([])
         session.flash({ register: {success: 'Conta criada com sucesso!'} })
